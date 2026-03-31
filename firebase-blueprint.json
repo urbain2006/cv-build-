@@ -1,0 +1,114 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "name": { "type": "string", "description": "Full name" },
+        "email": { "type": "string", "description": "Email address" },
+        "avatar": { "type": "string", "description": "Profile picture URL" }
+      },
+      "required": ["uid", "email"]
+    },
+    "CV": {
+      "title": "Curriculum Vitae",
+      "description": "CV data and metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique CV ID" },
+        "userId": { "type": "string", "description": "Owner's UID" },
+        "title": { "type": "string", "description": "CV Title" },
+        "templateId": { "type": "string", "description": "Selected template ID" },
+        "personalInfo": {
+          "type": "object",
+          "properties": {
+            "fullName": { "type": "string" },
+            "email": { "type": "string" },
+            "phone": { "type": "string" },
+            "address": { "type": "string" },
+            "summary": { "type": "string" },
+            "linkedin": { "type": "string" },
+            "portfolio": { "type": "string" },
+            "photoUrl": { "type": "string" }
+          }
+        },
+        "education": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "university": { "type": "string" },
+              "degree": { "type": "string" },
+              "year": { "type": "string" },
+              "field": { "type": "string" }
+            }
+          }
+        },
+        "experience": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "position": { "type": "string" },
+              "company": { "type": "string" },
+              "duration": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "level": { "type": "string", "enum": ["Beginner", "Intermediate", "Advanced", "Expert"] },
+              "type": { "type": "string", "enum": ["Technical", "Professional", "Language"] }
+            }
+          }
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "technologies": { "type": "string" }
+            }
+          }
+        },
+        "certifications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "organization": { "type": "string" },
+              "year": { "type": "string" }
+            }
+          }
+        },
+        "lastModified": { "type": "number", "description": "Timestamp of last modification" }
+      },
+      "required": ["userId", "title", "lastModified"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/cvs/{cvId}": {
+      "schema": "CV",
+      "description": "CV documents"
+    }
+  }
+}
